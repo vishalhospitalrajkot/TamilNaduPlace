@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Tamil Nadu: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,gu', // English, Hindi, Gujarati
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .active-filter {
+            background-color: #c2410c;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        /* Custom prose styles for modal content and analysis sections */
+        .prose h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #7c2d12;
+        }
+        .prose p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .prose strong {
+            font-weight: 600;
+            color: #9a3412;
+        }
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+        }
+        .prose table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .prose th, .prose td {
+            border: 1px solid #e7e5e4; /* stone-200 */
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .prose th {
+            background-color: #f5f5f4; /* stone-100 */
+            font-weight: 600;
+            color: #57534e; /* stone-700 */
+        }
+        .prose tr:nth-child(even) {
+            background-color: #fafaf9; /* stone-50 */
+        }
+
+        /* Styling for Google Translate widget */
+        #google_translate_element {
+            margin-left: auto; /* Push to the right */
+            margin-right: 1rem;
+            padding: 0.5rem 0;
+        }
+        .goog-te-gadget-simple {
+            border: none !important;
+            background-color: transparent !important;
+            font-size: 0.9rem !important;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value {
+            color: #57534e !important; /* stone-700 */
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span {
+            color: #57534e !important; /* stone-700 */
+        }
+        .goog-te-gadget-simple .goog-te-menu-value:hover {
+            color: #c2410c !important; /* orange-700 */
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-20">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left mb-2 md:mb-0">
+                <h1 class="text-3xl md:text-4xl font-bold text-orange-800">Discover Tamil Nadu</h1>
+                <p class="text-stone-600 mt-1">An Interactive Guide to the Top 20 Destinations</p>
+            </div>
+            <div id="google_translate_element" class="flex-shrink-0"></div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <section id="intro-narrative" class="mt-8 py-8 bg-white rounded-xl shadow-lg">
+            <div class="prose max-w-4xl mx-auto px-4 text-stone-700">
+                <p>Based on comprehensive analysis of Tamil Nadu's diverse attractions—from UNESCO heritage sites and spiritual landmarks to hill stations and natural wonders—here are the top 20 destinations to explore, prioritized by cultural significance, popularity, and unique experiences:</p>
+                <hr class="my-6 border-t border-stone-200">
+
+                <h3>1. Ooty</h3>
+                <p><strong>Queen of Hill Stations</strong> with emerald tea estates, the UNESCO-listed Nilgiri Mountain Railway, and Botanical Gardens. Boating on Ooty Lake and summer festivals are highlights.<br><strong>Best Time</strong>: March-June, September-November.</p>
+
+                <h3>2. Kodaikanal</h3>
+                <p><strong>Princess of Hill Stations</strong> famed for Kodai Lake, Pillar Rocks, and kurinji flowers that bloom every 12 years. Ideal for trekking and stargazing.<br><strong>Best Time</strong>: April-June, September-October.</p>
+
+                <h3>3. Madurai</h3>
+                <p><strong>Cultural Capital</strong> anchored by the Meenakshi Amman Temple with its 1,000 pillars. The Thirumalai Nayak Palace and bustling markets define this ancient city.<br><strong>Best Time</strong>: October-March.</p>
+
+                <h3>4. Rameswaram</h3>
+                <p><strong>Sacred Island</strong> housing Ramanathaswamy Temple's record-breaking corridor (longest in India). Pilgrims bathe at Agni Theertham and explore Dhanushkodi's ghost-town ruins.<br><strong>Best Time</strong>: Year-round.</p>
+
+                <h3>5. Kanyakumari</h3>
+                <p><strong>Southernmost Tip of India</strong> where three seas converge. Vivekananda Rock Memorial, sunrise views, and Thiruvalluvar Statue are iconic.<br><strong>Best Time</strong>: October-February.</p>
+
+                <h3>6. Mahabalipuram</h3>
+                <p><strong>UNESCO World Heritage Site</strong> with Pallava-era rock-cut temples like Shore Temple and Arjuna's Penance. Hosts the annual Mamallapuram Dance Festival.<br><strong>Best Time</strong>: November-February.</p>
+
+                <h3>7. Chennai</h3>
+                <p><strong>Coastal Capital</strong> featuring Marina Beach (India's longest urban beach), Kapaleeshwarar Temple, and colonial Fort St. George. December hosts the Margazhi music festival.<br><strong>Best Time</strong>: November-February.</p>
+
+                <h3>8. Thanjavur</h3>
+                <p><strong>Chola Architectural Marvel</strong> centered on the Brihadisvara Temple. Also renowned for Thanjavur paintings and silk weaving.<br><strong>Best Time</strong>: October-March.</p>
+
+                <h3>9. Yercaud</h3>
+                <p><strong>Jewel of the South</strong> offering serene coffee plantations, Yercaud Lake, and panoramic views from Pagoda Point. Kiliyur Falls is a trekking hotspot.<br><strong>Best Time</strong>: October-June.</p>
+
+                <h3>10. Kanchipuram</h3>
+                <p><strong>City of 1,000 Temples</strong> including Ekambareswarar and Kamakshi Amman. World-famous for handwoven Kanchipuram silk sarees.<br><strong>Best Time</strong>: October-May.</p>
+
+                <h3>11. Auroville</h3>
+                <p><strong>Experimental Township</strong> near Pondicherry focused on sustainable living. Matrimandir\'s meditation sphere and artisan workshops are key draws.', details: `<h3>Auroville</h3><p><strong>Why Visit</strong>: An experimental township with the Matrimandir, focusing on sustainable living near Puducherry.<br><strong>Highlights</strong>: Auroville and the picturesque Promenade Beach.</p>`, bestTime: `November-March`, uniqueAttractions: `Matrimandir, artisan workshops` },
+                <h3>12. Hogenakkal Falls</h3>
+                <p><strong>Niagara of India</strong> where the Kaveri River cascades through forested gorges. Medicinal baths and coracle rides are unique experiences.<br><strong>Best Time</strong>: October-March.</p>
+
+                <h3>13. Coimbatore</h3>
+                <p><strong>Manchester of South India</strong> blending industry with nature. Highlights include Adiyogi Shiva Statue, Marudhamalai Temple, and proximity to Western Ghats treks.<br><strong>Best Time</strong>: September-March.</p>
+
+                <h3>14. Tiruchirappalli (Trichy)</h3>
+                <p><strong>Historic Fort City</strong> dominated by Rock Fort Temple. Srirangam\'s Ranganathaswamy Temple is a major Vaishnavite pilgrimage site.<br><strong>Best Time</strong>: October-March.</p>
+
+                <h3>15. Chidambaram</h3>
+                <p><strong>Nataraja Temple Complex</strong> symbolizing cosmic space (Akasha) among Shiva\'s elemental shrines. Hosts the Natyanjali dance festival.<br><strong>Best Time</strong>: November-March.</p>
+
+                <h3>16. Coonoor</h3>
+                <p><strong>Ooty\'s Tranquil Sibling</strong> in the Nilgiris. Famous for Sim’s Park, Dolphin’s Nose viewpoint, and Nilgiri tea tastings.<br><strong>Best Time</strong>: Year-round.</p>
+
+                <h3>17. Mudumalai National Park</h3>
+                <p><strong>Wildlife Sanctuary</strong> bordering Bandipur. Safari trails feature tigers, elephants, and the Theppakadu Elephant Camp.<br><strong>Best Time</strong>: October-May.</p>
+
+                <h3>18. Valparai</h3>
+                <p><strong>Offbeat Hill Retreat</strong> with 40 hairpin bends leading to tea estates, Anamalai Tiger Reserve, and waterfalls like Nirar.<br><strong>Best Time</strong>: September-February.</p>
+
+                <h3>19. Tirunelveli</h3>
+                <p><strong>Temple & Nature Hub</strong> housing Nellaiappar Temple and Courtallam\'s therapeutic waterfalls. Nearby Kalakkadu Wildlife Sanctuary offers trekking.<br><strong>Best Time</strong>: October-February.</p>
+
+                <h3>20. Kumbakonam</h3>
+                <p><strong>Temple Town</strong> with the Mahamaham Festival (held every 12 years). Adi Kumbeswarar Temple and historic stepwells are key sites.<br><strong>Best Time</strong>: October-March.</p>
+                <hr class="my-6 border-t border-stone-200">
+            </div>
+        </section>
+
+        <section id="audio-overview" class="mt-8 py-8 bg-white rounded-xl shadow-lg text-center">
+            <h2 class="text-2xl font-bold text-stone-700 mb-4">Audio Overview: Tamil Nadu Unveiled</h2>
+            <div class="max-w-2xl mx-auto px-4">
+                <p class="text-stone-600 mb-4">Listen to a brief overview of Tamil Nadu's ancient wonders and living culture.</p>
+                <audio controls class="w-full">
+                    <source src="YOUR_DIRECT_PUBLIC_AUDIO_URL_HERE.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="text-sm text-stone-500 mt-2">
+                    To make this audio work, you need to host your MP3 file (e.g., on a web server or a public cloud storage service) and then replace "YOUR_DIRECT_PUBLIC_AUDIO_URL_HERE.mp3" above with that direct public URL.
+                </p>
+            </div>
+        </section>
+
+        <section id="filters" class="mb-8 mt-8">
+            <h2 class="text-xl font-bold text-center mb-4 text-stone-700">Explore by Interest</h2>
+            <div id="filter-buttons" class="flex flex-wrap justify-center gap-2 md:gap-3">
+            </div>
+            <p class="text-center text-stone-500 mt-4 text-sm">
+                This interactive section allows you to explore the top tourist destinations in Tamil Nadu. Use the filters above to discover places that match your interests, from spiritual centers and historical marvels to serene hill stations and beautiful coastlines. Click on any card to see detailed information about the location.
+            </p>
+        </section>
+
+        <section id="destinations">
+            <div id="destinations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            </div>
+        </section>
+
+        <section id="summary-chart" class="mt-16 py-12 bg-white rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-center mb-2 text-stone-700">Tamil Nadu's Attractions at a Glance</h2>
+            <p class="text-center text-stone-500 mb-8 max-w-3xl mx-auto px-4">
+                This chart provides a visual breakdown of the top 20 destinations by their primary attraction type. It highlights the rich diversity of experiences available, from a wealth of spiritual and historical sites to beautiful natural landscapes and hill stations. This helps in understanding the overall character of Tamil Nadu as a tourist destination.
+            </p>
+            <div class="chart-container">
+                <canvas id="attractionTypeChart"></canvas>
+            </div>
+        </section>
+
+        <section id="quick-reference-table" class="mt-16 py-12 bg-white rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-center mb-2 text-stone-700">Quick Reference Table</h2>
+            <div class="prose max-w-6xl mx-auto px-4 overflow-x-auto">
+                <table class="w-full text-sm text-left text-stone-700">
+                    <thead class="text-xs text-stone-900 uppercase bg-stone-100">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Destination</th>
+                            <th scope="col" class="px-6 py-3">Unique Attractions</th>
+                            <th scope="col" class="px-6 py-3">Best Time to Visit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="travel-tips" class="mt-16 py-12 bg-white rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-center mb-2 text-stone-700">Travel Tips & Practical Considerations</h2>
+            <p class="text-center text-stone-500 mb-8 max-w-3xl mx-auto px-4">
+                Before you embark on your journey, consider these practical tips to ensure a smooth and enjoyable trip across Tamil Nadu's diverse landscapes and cultural hotspots. This section provides advice on the best seasons to visit, local transport, dress codes, and health & safety.
+            </p>
+            <div class="prose max-w-4xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-stone-700">
+                <div>
+                    <h3>Best Seasons</h3>
+                    <p><strong>October–March</strong> for most of Tamil Nadu (cooler, dry); <strong>hill stations: April–June</strong>. Monsoon (July–September) brings lush greenery but check accessibility for some hill trails and waterfalls.</p>
+                    <h3>Local Transport</h3>
+                    <p>Major cities (Chennai, Madurai, Coimbatore) are well-connected by air/rail. For remote or hill regions, consider hiring a car with a local driver familiar with narrow, winding roads.</p>
+                    <h3>Dress Code</h3>
+                    <p>Many temples enforce modest attire (shoulders and knees covered). Carry a shawl or wrap for temple visits. Footwear removal is standard at temple entrances.</p>
+                    <h3>Health & Safety</h3>
+                    <p>Stay hydrated in plains; carry sunscreen and hats. In hill stations, carry light woolens. For wildlife sanctuaries or trekking, use local guides, check permits, and follow official advisories (e.g., for coracle rides at Hogenakkal or restricted cave areas at Kodaikanal).</p>
+                </div>
+                <div>
+                    <h3>Accommodation</h3>
+                    <p>Book in advance during peak seasons (school holidays, festival periods). Heritage properties in Chettinad and hill station resorts often fill up quickly.</p>
+                    <h3>Festivals & Events</h3>
+                    <p>Plan visits around major festivals for a cultural immersion (e.g., Meenakshi Tirukalyanam in Madurai around April/May; Karthika Deepam in Tiruvannamalai; Flower Show in Kodaikanal late May). However, festival times also mean larger crowds and higher prices—book early or opt for off-peak visits if preferred.</p>
+                    <h3>Beat the Heat</h3>
+                    <p>With rising temperatures (~38–40 °C), inland cities are hot; opt for hills (Ooty, Kodaikanal, Yercaud) or coasts (Rameswaram, Kanyakumari).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="key-citations" class="mt-8 py-8 bg-white rounded-xl shadow-lg">
+            <div class="prose max-w-4xl mx-auto px-4 text-stone-700">
+                <h2 class="text-2xl font-bold text-center mb-4 text-orange-800">Key Citations</h2>
+                <ul>
+                    <li><a href="https://www.holidify.com/state/tamil-nadu/top-destinations-places-to-visit.html" target="_blank" class="text-blue-600 hover:underline">Holidify Top Destinations in Tamil Nadu</a></li>
+                    <li><a href="https://www.makemytrip.com/tripideas/places-to-visit-in-tamil-nadu" target="_blank" class="text-blue-600 hover:underline">MakeMyTrip Places to Visit in Tamil Nadu</a></li>
+                    <li><a href="https://traveltriangle.com/blog/best-tourist-places-in-tamil-nadu/" target="_blank" class="text-blue-600 hover:underline">TravelTriangle Best Tourist Places in Tamil Nadu</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contact-info" class="mt-16 py-12 bg-white rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-center mb-8 text-orange-800">Contact Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 text-stone-700">
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md border border-stone-200">
+                    <h3 class="text-xl font-semibold text-orange-700 mb-3">Vishal Hospital (Rajkot)</h3>
+                    <p><strong>Address:</strong> Vishal Hospital, Kailashwadi Main Road, opposite Taluka Polish Choki, Junction Plot, Rajkot, Gujarat 360001</p>
+                    <p><strong>Mobile:</strong> <a href="tel:+919228105245" class="text-blue-600 hover:underline">9228105245</a></p>
+                    <p><strong>Landline:</strong> <a href="tel:+9102812450408" class="text-blue-600 hover:underline">0281-2450408</a></p>
+                    <p><strong>Website:</strong> <a href="https://vishalhospitalrajkot.github.io/" target="_blank" class="text-blue-600 hover:underline">vishalhospitalrajkot.github.io</a></p>
+                </div>
+
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md border border-stone-200">
+                    <h3 class="text-xl font-semibold text-orange-700 mb-3">Vishal Banquet Hall</h3>
+                    <p><strong>Address:</strong> Vishal Banquet Hall, Gaya-Dobhi Rd, Musatpura, Bihar 823004</p>
+                    <p><strong>Mobile:</strong> <a href="tel:+919228105245" class="text-blue-600 hover:underline">9228105245</a></p>
+                    <p><strong>Website:</strong> <a href="https://vishalbanquethall1.github.io/" target="_blank" class="text-blue-600 hover:underline">vishalbanquethall1.github.io</a></p>
+                </div>
+
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md border border-stone-200">
+                    <h3 class="text-xl font-semibold text-orange-700 mb-3">Vishal Hospital (Bodh Gaya)</h3>
+                    <p><strong>Address:</strong> Vishal Hospital, Gaya-Dobhi Rd, Musatpura, Bihar 823004</p>
+                    <p><strong>Mobile:</strong> <a href="tel:+919228105245" class="text-blue-600 hover:underline">9228105245</a></p>
+                    <p><strong>Website:</strong> <a href="https://vishalhospitalrajkot.github.io/vishalhospitalbodhgaya/" target="_blank" class="text-blue-600 hover:underline">vishalhospitalrajkot.github.io/vishalhospitalbodhgaya/</a></p>
+                </div>
+
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md border border-stone-200">
+                    <h3 class="text-xl font-semibold text-orange-700 mb-3">Dr. Anoop Lal Sinha</h3>
+                    <p><strong>Mobile:</strong> <a href="tel:+919228105245" class="text-blue-600 hover:underline">9228105245</a></p>
+                    <p><strong>Website:</strong> <a href="https://vishalhospitalrajkot.github.io/Dr.AnoopLalSinha/" target="_blank" class="text-blue-600 hover:underline">vishalhospitalrajkot.github.io/Dr.AnoopLalSinha/</a></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-800 text-white mt-12 py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Interactive Guide to Tamil Nadu. Data sourced from authoritative reports.</p>
+            <p class="text-sm text-stone-400 mt-2">For official information, visit 
+                <a href="https://www.tamilnadutourism.tn.gov.in" target="_blank" class="underline hover:text-orange-300">Tamil Nadu Tourism</a>.
+            </p>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal invisible opacity-0 fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4">
+        <div id="modal-content" class="bg-white rounded-lg shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button id="modal-close" class="absolute top-3 right-3 text-stone-500 hover:text-stone-900 z-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-body" class="p-6 md:p-8">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const destinations = [
+            { rank: 1, name: 'Ooty', type: ['Hill Station', 'Natural', 'UNESCO'], highlight: 'Queen of Hill Stations with emerald tea estates, the UNESCO-listed Nilgiri Mountain Railway, and Botanical Gardens. Boating on Ooty Lake and summer festivals are highlights.', details: `<h3>Ooty</h3><p><strong>Why Visit</strong>: Queen of Hill Stations with emerald tea estates, the UNESCO-listed Nilgiri Mountain Railway, and Botanical Gardens. Boating on Ooty Lake and summer festivals are highlights.</p>`, bestTime: `March-June, September-November`, uniqueAttractions: `Tea gardens, toy train, Botanical Gardens` },
+            { rank: 2, name: 'Kodaikanal', type: ['Hill Station', 'Natural'], highlight: 'Princess of Hill Stations famed for Kodai Lake, Pillar Rocks, and kurinji flowers that bloom every 12 years. Ideal for trekking and stargazing.', details: `<h3>Kodaikanal</h3><p><strong>Why Visit</strong>: Princess of Hill Stations famed for Kodai Lake, Pillar Rocks, and kurinji flowers that bloom every 12 years. Ideal for trekking and stargazing.</p>`, bestTime: `April-June, September-October`, uniqueAttractions: `Pillar Rocks, kurinji flowers` },
+            { rank: 3, name: 'Madurai', type: ['Cultural', 'Religious', 'Historical'], highlight: 'Cultural Capital anchored by the Meenakshi Amman Temple with its 1,000 pillars. The Thirumalai Nayak Palace and bustling markets define this ancient city.', details: `<h3>Madurai</h3><p><strong>Why Visit</strong>: Cultural Capital anchored by the Meenakshi Amman Temple with its 1,000 pillars. The Thirumalai Nayak Palace and bustling markets define this ancient city.</p>`, bestTime: `October-March`, uniqueAttractions: `Meenakshi Temple, markets` },
+            { rank: 4, name: 'Rameswaram', type: ['Religious', 'Coastal'], highlight: 'Sacred Island housing Ramanathaswamy Temple\'s record-breaking corridor (longest in India). Pilgrims bathe at Agni Theertham and explore Dhanushkodi\'s ghost-town ruins.', details: `<h3>Rameswaram</h3><p><strong>Why Visit</strong>: Sacred Island housing Ramanathaswamy Temple's record-breaking corridor (longest in India). Pilgrims bathe at Agni Theertham and explore Dhanushkodi's ghost-town ruins.</p>`, bestTime: `Year-round`, uniqueAttractions: `Ramanathaswamy Temple, Dhanushkodi` },
+            { rank: 5, name: 'Kanyakumari', type: ['Coastal', 'Religious', 'Natural'], highlight: 'Southernmost Tip of India where three seas converge. Vivekananda Rock Memorial, sunrise views, and Thiruvalluvar Statue are iconic.', details: `<h3>Kanyakumari</h3><p><strong>Why Visit</strong>: Southernmost Tip of India where three seas converge. Vivekananda Rock Memorial, sunrise views, and Thiruvalluvar Statue are iconic.</p>`, bestTime: `October-February`, uniqueAttractions: `Vivekananda Rock, sunset views` },
+            { rank: 6, name: 'Mahabalipuram', type: ['Historical', 'Coastal', 'UNESCO', 'Archaeological'], highlight: 'UNESCO World Heritage Site with Pallava-era rock-cut temples like Shore Temple and Arjuna\'s Penance. Hosts the annual Mamallapuram Dance Festival.', details: `<h3>Mahabalipuram</h3><p><strong>Why Visit</strong>: UNESCO World Heritage Site with Pallava-era rock-cut temples like Shore Temple and Arjuna's Penance. Hosts the annual Mamallapuram Dance Festival.</p>`, bestTime: `November-February`, uniqueAttractions: `Shore Temple, dance festival` },
+            { rank: 7, name: 'Chennai', type: ['Urban', 'Historical', 'Coastal', 'Cultural'], highlight: 'Coastal Capital featuring Marina Beach (India\'s longest urban beach), Kapaleeshwarar Temple, and colonial Fort St. George. December hosts the Margazhi music festival.', details: `<h3>Chennai</h3><p><strong>Why Visit</strong>: The capital city of Tamil Nadu, Chennai is a bustling metropolis blending modernity with tradition. It’s home to Marina Beach, one of the longest urban beaches globally, and landmarks like Fort St. George and Kapaleeshwarar Temple.<br><strong>Highlights</strong>: A vibrant cultural scene and a gateway to Tamil Nadu’s heritage.</p>`, bestTime: `November-February`, uniqueAttractions: `Marina Beach, Kapaleeshwarar Temple` },
+            { rank: 8, name: 'Thanjavur', type: ['Historical', 'Cultural', 'Religious', 'UNESCO'], highlight: 'Chola Architectural Marvel centered on the Brihadisvara Temple. Also renowned for Thanjavur paintings and silk weaving.', details: `<h3>Thanjavur</h3><p><strong>Why Visit</strong>: Home to the Brihadeeswarar Temple, a UNESCO site, Thanjavur is a hub of South Indian art and architecture.<br><strong>Highlights</strong>: Marvel at the temple’s towering vimana and intricate carvings.</p>`, bestTime: `October-March`, uniqueAttractions: `Brihadisvara Temple, Thanjavur paintings` },
+            { rank: 9, name: 'Yercaud', type: ['Hill Station', 'Natural'], highlight: 'Jewel of the South offering serene coffee plantations, Yercaud Lake, and panoramic views from Pagoda Point. Kiliyur Falls is a trekking hotspot.', details: `<h3>Yercaud</h3><p><strong>Why Visit</strong>: A peaceful hill station ideal for a quiet getaway.<br><strong>Highlights</strong>: Emerald Lake, coffee plantations, and Lady’s Seat viewpoint.</p>`, bestTime: `October-June`, uniqueAttractions: `Emerald Lake, coffee plantations, Lady’s Seat viewpoint` },
+            { rank: 10, name: 'Kanchipuram', type: ['Historical', 'Religious', 'Cultural'], highlight: 'City of 1,000 Temples including Ekambareswarar and Kamakshi Amman. World-famous for handwoven Kanchipuram silk sarees.', details: `<h3>Kanchipuram</h3><p><strong>Why Visit</strong>: Famous for silk sarees and ancient temples, it’s one of Hinduism’s seven sacred cities.<br><strong>Highlights</strong>: Kailasanathar Temple and Ekambareswarar Temple.</p>`, bestTime: `October-May`, uniqueAttractions: `Ekambareswarar Temple, Kamakshi Amman Temple, silk sarees` },
+            { rank: 11, name: 'Auroville', type: ['Spiritual', 'Cultural'], highlight: 'Experimental Township near Pondicherry focused on sustainable living. Matrimandir\'s meditation sphere and artisan workshops are key draws.', details: `<h3>Auroville</h3><p><strong>Why Visit</strong>: An experimental township with the Matrimandir, focusing on sustainable living near Puducherry.<br><strong>Highlights</strong>: Auroville and the picturesque Promenade Beach.</p>`, bestTime: `November-March`, uniqueAttractions: `Matrimandir, artisan workshops` },
+            { rank: 12, name: 'Hogenakkal Falls', type: ['Natural', 'Scenic'], highlight: 'Niagara of India where the Kaveri River cascades through forested gorges. Medicinal baths and coracle rides are unique experiences.', details: `<h3>Hogenakkal Falls</h3><p><strong>Why Visit</strong>: Dubbed the "Niagara of India," this waterfall on the Kaveri River is a natural wonder.<br><strong>Highlights</strong>: Enjoy boat rides and the falls’ therapeutic waters.</p>`, bestTime: `October-March`, uniqueAttattractions: `Coracle rides, medicinal baths` },
+            { rank: 13, name: 'Coimbatore', type: ['Urban', 'Spiritual', 'Industrial', 'Natural'], highlight: 'Manchester of South India blending industry with nature. Highlights include Adiyogi Shiva Statue, Marudhamalai Temple, and proximity to Western Ghats treks.', details: `<h3>Coimbatore</h3><p><strong>Why Visit</strong>: Called the "Manchester of South India," it’s a gateway to the Nilgiris and a modern industrial city.<br><strong>Highlights</strong>: Isha Yoga Center and the Adiyogi Shiva Statue.</p>`, bestTime: `September-March`, uniqueAttractions: `Adiyogi Shiva Statue, Marudhamalai Temple, treks` },
+            { rank: 14, name: 'Tiruchirappalli (Trichy)', type: ['Historical', 'Religious'], highlight: 'Historic Fort City dominated by Rock Fort Temple. Srirangam\'s Ranganathaswamy Temple is a major Vaishnavite pilgrimage site.', details: `<h3>Tiruchirappalli (Trichy)</h3><p><strong>Why Visit</strong>: Known for the Rockfort Temple and the massive Sri Ranganathaswamy Temple.<br><strong>Highlights</strong>: A blend of history, spirituality, and stunning views.</p>`, bestTime: `October-March`, uniqueAttractions: `Rock Fort Temple, Ranganathaswamy Temple` },
+            { rank: 15, name: 'Chidambaram', type: ['Religious', 'Historical', 'Cultural'], highlight: 'Nataraja Temple Complex symbolizing cosmic space (Akasha) among Shiva\'s elemental shrines. Hosts the Natyanjali dance festival.', details: `<h3>Chidambaram</h3><p><strong>Why Visit</strong>: Home to the iconic Nataraja (dancing Shiva) temple.<br><strong>Highlights</strong>: Spiritual ambiance and peaceful beaches.</p>`, bestTime: `November-March`, uniqueAttractions: `Nataraja Temple, Natyanjali dance festival` },
+            { rank: 16, name: 'Coonoor', type: ['Hill Station', 'Natural'], highlight: 'Ooty\'s Tranquil Sibling in the Nilgiris. Famous for Sim’s Park, Dolphin’s Nose viewpoint, and Nilgiri tea tastings.', details: `<h3>Coonoor</h3><p><strong>Why Visit</strong>: A tranquil Nilgiri hill station with tea estates and scenic viewpoints.<br><strong>Highlights</strong>: Dolphin’s Nose and Sim’s Park.</p>`, bestTime: `Year-round`, uniqueAttractions: `Sim’s Park, Dolphin’s Nose, tea tastings` },
+            { rank: 17, name: 'Mudumalai National Park', type: ['Wildlife', 'Natural'], highlight: 'Wildlife Sanctuary bordering Bandipur. Safari trails feature tigers, elephants, and the Theppakadu Elephant Camp.', details: `<h3>Mudumalai National Park</h3><p><strong>Why Visit</strong>: A biodiversity hotspot perfect for wildlife enthusiasts.<br><strong>Highlights</strong>: Spot tigers, elephants, and birds on a safari.</p>`, bestTime: `October-May`, uniqueAttractions: `Safari, elephant camp, rich biodiversity` },
+            { rank: 18, name: 'Valparai', type: ['Hill Station', 'Natural', 'Wildlife'], highlight: 'Offbeat Hill Retreat with 40 hairpin bends leading to tea estates, Anamalai Tiger Reserve, and waterfalls like Nirar.', details: `<h3>Valparai</h3><p><strong>Why Visit</strong>: An offbeat hill retreat known for its winding roads and scenic beauty. It leads to tea estates, the Anamalai Tiger Reserve, and stunning waterfalls like Nirar.<br><strong>Highlights</strong>: 40 hairpin bends, tea estates, Anamalai Tiger Reserve, waterfalls.</p>`, bestTime: `September-February`, uniqueAttractions: `Tea estates, Anamalai Tiger Reserve, waterfalls` },
+            { rank: 19, name: 'Tirunelveli', type: ['Historical', 'Religious', 'Natural'], highlight: 'Temple & Nature Hub housing Nellaiappar Temple and Courtallam\'s therapeutic waterfalls. Nearby Kalakkadu Wildlife Sanctuary offers trekking.', details: `<h3>Tirunelveli</h3><p><strong>Why Visit</strong>: A historical city known for the Nellaiappar Temple and proximity to nature. It also offers access to Courtallam's therapeutic waterfalls and the Kalakkadu Wildlife Sanctuary for trekking.<br><strong>Highlights</strong>: Nellaiappar Temple, Courtallam waterfalls, Kalakkadu Wildlife Sanctuary.</p>`, bestTime: `October-February`, uniqueAttractions: `Nellaiappar Temple, Courtallam waterfalls, Kalakkadu Wildlife Sanctuary` },
+            { rank: 20, name: 'Kumbakonam', type: ['Religious', 'Historical'], highlight: 'Temple Town with the Mahamaham Festival (held every 12 years). Adi Kumbeswarar Temple and historic stepwells are key sites.', details: `<h3>Kumbakonam</h3><p><strong>Why Visit</strong>: A significant temple town famous for its numerous temples and spiritual ambiance. It hosts the Mahamaham Festival every 12 years.<br><strong>Highlights</strong>: Adi Kumbeswarar Temple, historic stepwells, Mahamaham Festival.</p>`, bestTime: `October-March`, uniqueAttractions: `Adi Kumbeswarar Temple, Mahamaham Festival, historic stepwells` }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('destinations-grid');
+            const filterButtonsContainer = document.getElementById('filter-buttons');
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalBody = document.getElementById('modal-body');
+            const modalClose = document.getElementById('modal-close');
+            const quickReferenceTableBody = document.querySelector('#quick-reference-table tbody');
+
+
+            let activeFilter = 'All';
+
+            // Dynamically collect all unique types from destinations for filters
+            const allTypes = new Set();
+            destinations.forEach(d => d.type.forEach(t => allTypes.add(t)));
+            const attractionTypes = ['All', ...Array.from(allTypes).sort()]; // Sort for consistent order
+            
+            function renderFilters() {
+                filterButtonsContainer.innerHTML = attractionTypes.map(type => 
+                    `<button class="filter-btn px-4 py-2 rounded-full border border-orange-700 text-orange-800 hover:bg-orange-100 transition duration-200 text-sm md:text-base ${activeFilter === type ? 'active-filter' : ''}" data-filter="${type}">
+                        ${type}
+                    </button>`
+                ).join('');
+            }
+
+            function renderDestinations() {
+                const filteredDestinations = activeFilter === 'All' 
+                    ? destinations 
+                    : destinations.filter(d => d.type.includes(activeFilter));
+
+                grid.innerHTML = filteredDestinations.map(dest => `
+                    <div class="destination-card bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition duration-300 cursor-pointer" data-rank="${dest.rank}">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-stone-800">${dest.name.split(',')[0]}</h3> <span class="text-2xl font-bold text-orange-600">${dest.rank}</span>
+                            </div>
+                            <p class="text-stone-600 text-sm mb-4 h-10 overflow-hidden">${dest.highlight}</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${dest.type.map(t => `<span class="bg-orange-100 text-orange-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${t}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function showModal(rank) {
+                const dest = destinations.find(d => d.rank == rank);
+                if (dest) {
+                    modalBody.innerHTML = `
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-3xl font-bold text-orange-800">${dest.name}</h2>
+                            <span class="text-4xl font-extrabold text-orange-200">${dest.rank}</span>
+                        </div>
+                        <div class="prose max-w-none text-stone-700">
+                            ${dest.details}
+                        </div>
+                        <div class="mt-6 flex flex-wrap gap-2">
+                            ${dest.type.map(t => `<span class="bg-orange-100 text-orange-800 text-sm font-semibold px-3 py-1 rounded-full">${t}</span>`).join('')}
+                        </div>
+                    `;
+                    modal.classList.remove('invisible', 'opacity-0');
+                }
+            }
+
+            function hideModal() {
+                modal.classList.add('invisible', 'opacity-0');
+            }
+            
+            function renderChart() {
+                const typeCounts = {};
+                destinations.flatMap(d => d.type).forEach(type => {
+                    typeCounts[type] = (typeCounts[type] || 0) + 1;
+                });
+
+                const sortedTypes = Object.entries(typeCounts).sort(([,a],[,b]) => b-a);
+                const labels = sortedTypes.map(item => {
+                    // Wrap labels if they are too long for better readability in chart
+                    const label = item[0];
+                    if (label.length > 16 && label.includes(' ')) {
+                        return label.split(' ').join('\n'); 
+                    } else if (label.length > 16) {
+                        return label.match(/.{1,8}/g).join('\n'); // Break long single words
+                    }
+                    return label;
+                });
+                const data = sortedTypes.map(item => item[1]);
+                
+                const ctx = document.getElementById('attractionTypeChart').getContext('2d');
+                // Destroy existing chart instance if it exists to prevent re-rendering issues
+                if (Chart.getChart(ctx)) {
+                    Chart.getChart(ctx).destroy();
+                }
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Number of Destinations',
+                            data: data,
+                            backgroundColor: 'rgba(194, 65, 12, 0.7)',
+                            borderColor: 'rgba(194, 65, 12, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return ` ${context.raw} destinations`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    autoSkip: false,
+                                    callback: function(value, index, values) {
+                                        return this.getLabelForValue(value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderQuickReferenceTable() {
+                let tableHTML = '';
+                destinations.forEach(dest => {
+                    tableHTML += `
+                        <tr class="bg-white border-b hover:bg-stone-50">
+                            <td class="px-6 py-4 font-medium text-stone-900 whitespace-nowrap">${dest.name}</td>
+                            <td class="px-6 py-4">${dest.uniqueAttractions || 'N/A'}</td>
+                            <td class="px-6 py-4">${dest.bestTime || 'N/A'}</td>
+                        </tr>
+                    `;
+                });
+                quickReferenceTableBody.innerHTML = tableHTML;
+            }
+
+            filterButtonsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    activeFilter = e.target.dataset.filter;
+                    renderFilters();
+                    renderDestinations();
+                }
+            });
+
+            grid.addEventListener('click', (e) => {
+                const card = e.target.closest('.destination-card');
+                if (card) {
+                    showModal(card.dataset.rank);
+                }
+            });
+
+            modalClose.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    hideModal();
+                }
+            });
+
+            renderFilters();
+            renderDestinations();
+            renderChart();
+            renderQuickReferenceTable();
+        });
+    </script>
+</body>
+</html>
